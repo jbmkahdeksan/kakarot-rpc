@@ -62,7 +62,6 @@ test-target: load-env
 benchmark:
 	cd benchmarks && bun i && bun run benchmark
 
-
 docker-build: setup
 	docker build -t kakarot-rpc . -f docker/rpc/Dockerfile
 
@@ -74,6 +73,9 @@ testnet-rpc-up:
 
 staging-rpc-up:
 	docker compose -f docker-compose.staging.yaml up -d --force-recreate
+
+check:
+	cargo check && cargo fmt --all -- --check && cargo clippy --workspace --all-features --all-targets -- -D warnings
 
 # To stop the dockerized local instances, run: docker compose -f <NAME OF THE FILE> down
 # To delete volumes, add the `--volumes` flag to the command above.
